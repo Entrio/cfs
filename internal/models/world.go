@@ -1,6 +1,7 @@
 package models
 
 import (
+	"github.com/google/uuid"
 	"time"
 )
 
@@ -60,6 +61,7 @@ func (w *World) ProcessUpdate() error {
 
 func (w *World) AddFarm(resourceType ResourceType) error {
 	f := Farm{
+		id:           uuid.New(),
 		growthPeriod: time.Second * 20,
 	}
 	f.cells = GenerateFarmCells(&f, 50)

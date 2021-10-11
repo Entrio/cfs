@@ -1,0 +1,15 @@
+syntax = "proto3";
+option go_package = "common/gen";
+
+service CFSPublic{
+  rpc GetServerInfo(ServerInfoRequest) returns (ServerInfoResponse);
+  rpc CreateFarm(Empty) returns (Empty);
+}
+
+message Empty{}
+
+message ServerInfoRequest{}
+message ServerInfoResponse{
+  string name = 1;
+}
+

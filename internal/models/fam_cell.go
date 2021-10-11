@@ -17,7 +17,7 @@ type (
 
 func GenerateFarmCells(farm *Farm, qty int) []FarmCell {
 	log.Trace().
-		Str("owner", farm.GetName()).
+		Str("owner", farm.id.String()).
 		Int("type", int(farm.resourceType)).
 		Int("qty", qty).
 		Msg("Generating cells")

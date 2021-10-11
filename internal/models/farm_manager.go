@@ -32,7 +32,7 @@ func (fm *FarmManager) AddFarm(farm Farm) error {
 	//TODO: Validate the new farm
 	fm.farms = append(fm.farms, farm)
 	log.Info().
-		Str("name", farm.GetName()).
+		Str("name", farm.GetID().String()).
 		Str("description", farm.GetDescription()).
 		Int("cells", len(farm.cells)).
 		Msg("new farm added")

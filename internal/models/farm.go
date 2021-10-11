@@ -2,6 +2,7 @@ package models
 
 import (
 	"fmt"
+	"github.com/google/uuid"
 	"github.com/rs/zerolog/log"
 	"time"
 )
@@ -13,6 +14,7 @@ If the cell hasn't been worked, do not update it, otherwise update the grown amo
 
 type (
 	Farm struct {
+		id           uuid.UUID
 		cells        []FarmCell
 		resourceType ResourceType
 		growthPeriod time.Duration
@@ -21,6 +23,10 @@ type (
 
 func (f *Farm) GetName() string {
 	return "farm"
+}
+
+func (f *Farm) GetID() uuid.UUID {
+	return f.id
 }
 
 func (f *Farm) GetDescription() string {
@@ -33,7 +39,7 @@ func (f *Farm) Update(delta int64) {
 
 		if f.cells[c].isReadyToBeHarvested {
 			// no point in doing anything we are ready to be harvested
-			log.Trace().Str("cell", fmt.Sprintf("cell_%d", c)).Msg("ready to be harvested")
+			//log.Trace().Str("cell", fmt.Sprintf("cell_%d", c)).Msg("ready to be harvested")
 			continue
 		}
 

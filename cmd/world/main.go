@@ -2,8 +2,12 @@ package main
 
 import (
 	"github.com/Entrio/cfs/internal/models"
+	gen "github.com/Entrio/cfs/internal/proto"
+	"github.com/Entrio/cfs/server"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
+	"google.golang.org/grpc"
+	"net"
 	"os"
 	"time"
 )
@@ -38,7 +42,23 @@ func main() {
 
 	}()
 
-	go test(w)
+	{
+		go func() {
+			log.Info().Msg("Starting GRPC server")
+			lis, err := net.Listen("tcp", "0.0.0.0:43567")
+			if err != nil {
+				log.Fatal().Err(err).Msg("creating GRPC listener handle")
+			}
+			s := grpc.NewServer()
+			gen.RegisterCFSPublicServer(s, server.NewPublicServer(w))
+			log.Info().Msg("GRPC server started")
+			if err = s.Serve(lis); err != nil {
+				log.Fatal().Err(err).Msg("GRPC server listen")
+			}
+		}()
+	}
+
+	//go test(w)
 	<-w.Quit()
 	log.Info().Msg("Program exit")
 }
