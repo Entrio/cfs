@@ -59,6 +59,10 @@ func (w *World) ProcessUpdate() error {
 	return nil
 }
 
+func (w *World) GetFarmManager() *FarmManager {
+	return w.farmManager
+}
+
 func (w *World) AddFarm(resourceType ResourceType) error {
 	f := Farm{
 		id:           uuid.New(),

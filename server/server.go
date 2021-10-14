@@ -24,3 +24,15 @@ func (s server) GetServerInfo(ctx context.Context, request *gen.ServerInfoReques
 func (s server) CreateFarm(ctx context.Context, request *gen.Empty) (*gen.Empty, error) {
 	return new(gen.Empty), s.world.AddFarm(models.Wood)
 }
+
+func (s server) GetFarms(context.Context, *gen.Empty) (*gen.GetFarmsResponse, error) {
+	farms := make([]*gen.Farm, 0)
+	for _, f := range s.world.GetFarmManager().GetFarms() {
+		farms = append(farms, &gen.Farm{
+			Id:    f.GetID().String(),
+			Type:  models.ResourceTypeString[f.GetResourceType()],
+			Cells: int32(f.GetCellsCount()),
+		})
+	}
+	return &gen.GetFarmsResponse{Farms: farms}, nil
+}

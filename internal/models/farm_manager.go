@@ -25,6 +25,10 @@ func (fm *FarmManager) update(delta int64) {
 	}
 }
 
+func (fm *FarmManager) GetFarms() []Farm {
+	return fm.farms
+}
+
 // AddFarm creates a new farm and adds to the manager
 func (fm *FarmManager) AddFarm(farm Farm) error {
 	fm.mu.Lock()

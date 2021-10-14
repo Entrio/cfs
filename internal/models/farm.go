@@ -25,6 +25,14 @@ func (f *Farm) GetName() string {
 	return "farm"
 }
 
+func (f *Farm) GetResourceType() ResourceType {
+	return f.resourceType
+}
+
+func (f *Farm) GetCellsCount() int {
+	return len(f.cells)
+}
+
 func (f *Farm) GetID() uuid.UUID {
 	return f.id
 }
